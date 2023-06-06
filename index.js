@@ -28,8 +28,8 @@ async function countNftPerHolder() {
 	const totalSupply = await fetchNftTotalSupply();
 
 	for (let index = 1; index <= totalSupply; index++) {
-		const percentage = (index / totalSupply) * 100;
-		console.log(`Fetching NFTs... ${percentage.toFixed(2)}%`);
+		await new Promise((resolve) => setTimeout(resolve, 100)); // Introduce a 1-second delay
+		console.log(`Fetching NFTs... #${index}`);
 		let holder = await fetchNftHolder([index, 0]);
 
 		if (nftHolders[holder]) {
@@ -46,7 +46,7 @@ async function countNftPerHolder() {
 
 	// Display the sorted count of NFTs per holder
 	sortedNftHolders.forEach(([holder, count]) => {
-		if (count != 1 || count != 2) {
+		if (count > 2) {
 			console.log(`${holder} : ${count} NFTs`);
 		}
 	});
